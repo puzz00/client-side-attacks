@@ -89,8 +89,6 @@ Once we have crafted our malicious batch script and saved it as a .bat file we c
 
 ![trojan4](/images/8.png)
 
-![trojan5](/images/9.png)
-
 At this point we have a working trojan - okay - not many if any people are going to open that dodgy looking batch file - though with good social engineering some will - so we will next work on making it look more legitimate.
 
 ##### Converting .bat to .exe and Adding an Icon
