@@ -1,5 +1,5 @@
 # client-side-attacks
-:japanese-ogre: hacking people { info gathering | social engineering | resource development | delivery methods } :japanese-ogre:
+:japanese_ogre: hacking people { info gathering | social engineering | resource development | delivery methods } :japanese_ogre:
 
 ---
 
