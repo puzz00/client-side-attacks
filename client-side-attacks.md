@@ -93,3 +93,89 @@ At this point we have a working trojan - okay - not many if any people are going
 
 ##### Converting .bat to .exe and Adding an Icon
 
+At this point we have a trojan which works but looks suspicious.
+
+![trojan6](/images/6.png)
+
+We want to make it look more like a .png as in this example we are using a .png file as the cover for the malicious code.
+
+We can turn the .bat script into an .exe file using a .bat to .exe [conversion tool](https://github.com/tokyoneon/B2E)
+
+This is a good tool because we can add an .ico to make the file look more like a .png and we can choose to make `Exe-Format` option `(Invisible)` which means the target will not see the script run.
+
+>[!TIP]
+>We can easily create an .ico file using an online .png to .ico conversion tool - there are lots of them
+
+![trojan7](/images/9.png)
+
+Once we have finished converting the .bat file to an .exe file as described above the trojan will look more believable.
+
+![trojan8](/images/10.png)
+
+>[!NOTE]
+>Windows by default does not show file extensions so we do not at this point need to worry about .exe showing and scaring the target - there is a trick we can use to help with this which will soon see
+
+If we open the trojan now we find that no warnings pop up and no scary scripts can be seen running - we just see what the target would expect to see - a .png image of the witch-head nebula.
+
+![trojan9](/images/11.png)
+
+The malicious code has still been executed in the background and we find a new agent has checked into our empire C2 server.
+
+![trojan10](/images/12.png)
+
+This means our trojan is more likely to be executed by the target.
+
+The next question relates to delivery methods. If we have managed to get the trojan to the target in a way which does not use the internet - for example on a USB stick - then the trojan will work as we have seen.
+
+In most cases though we will be delivering the trojan using the internet in some way or form. This raises the problem of the browser showing the real file extension of .exe when the trojan is being downloaded and Defender SmartScreen warning the target that they are opening an executable. We will look at some ways we can mitigate these problems next.
+
+##### Dealing with the .exe Extension and Pesky Defender SmartScreen
+
+When we upload our trojan to pwndrop we see that it has an .exe file extension after our .png fake one.
+
+![trojan11](/images/13.png)
+
+If the target downloads this as it is they will be able to see the .exe file extension since the browswer will display it on the file name.
+
+We can get around this by creating a zip archive of several files. In this example we zip three pictures of astrophotography. Since this is Proof Of Concept we only make one of them a trojan. In reality we would make them all trojans.
+
+![trojan12](/images/14.png)
+
+![trojan13](/images/15.png)
+
+![trojan14](/images/16.png)
+
+The next problem is Defender SmartScreen giving the target a warning not to open the file which has been downloaded because it is an unrecognised app.
+
+We can use social engineering techniques to get around this.
+
+![trojan15](/images/17.png)
+
+![trojan16](/images/18.png)
+
+Another problem this causes is that the scary .exe file extension has reared its ugly head again. Fortunately we can use a trick to hide it.
+
+We will use the *right-to-left override* character which can be found online in different places - one such place can be found [here](https://unicode-explorer.com/c/202E)
+
+The idea is simple - we will think of a word which ends exe or nearly ends exe - in this case we use annexe hoping the target doesnt think too much of it - maybe an annexe of photos!
+
+We then craft a file name such as `astro-backyard-1-anngnp.exe`
+
+The `gnp.exe` part will have the right-to-left override character applied to it so it will read as `exe.png` which will make the whole sneaky filename read as `astro-backyard-1-annexe.png`
+
+![trojan17](/images/19.png)
+
+![trojan18](/images/20.png)
+
+![trojan19](/images/21.png)
+
+![trojan20](/images/22.png)
+
+The target will still be warned when they open the trojan but the scary .exe file extension is no longer visible - it looks like a legit .png because SmartScreen doesnt pick up on the fact that the RLO character has been used.
+
+In our social engineering we can play on the fact that the .png is from an unknown publisher and this is why Defender gives a warning. There are other techniques we can use too - these are to be covered in the social engineering section of these notes :smiling_imp: 
+
+![trojan21](/images/23.png)
+
+>[!TIP]
+>We dont have to use a word which ends exactly exe - we can just add an e to words which end ex - targets will tend to see this as a typo - especially if they are very keen to open the image - why does `sexe` spring to mind? We could also register a domain name such as `galexe` and use it in our file names
