@@ -1,5 +1,52 @@
 # Client Side Attacks
 
+Client-side attacks aim to exploit vulnerabilities or misconfigurations in client-side programs or to exploit the employees of companies to establish an initial foothold into an organizations networks.
+
+These attacks are very effective and prevelent as humans are the weak link in an organizations security.
+
+We are trying to get onto a client device in a network rather than attacking servers.
+
+>[!IMPORTANT]
+>The attacks we run will depend on the devices and software installed on the client machines
+
+Due to the fact that client-side attacks usually need some kind of human interaction in order to work, social engineering comes into play when using them.
+
+## Introductary Example
+
+To get a better idea of how a client-side attack can work - consider the following fictitious but illustrative example.
+
+We - the attackers - want to gain access to a company called Teszzla. We will use a client-side attack rather than a server attack to attempt to do this.
+
+First, we research Teszzla using publicly available data. We look through their websites, social media and job postings. During this research we harvest names of employees and their roles in the company. We then gather data about the technology being used by Teszzla.
+
+Next, we identify the best targets - employees - in Teszzla. We look for those who probably have access to the data we are after. We focus our recon on these employees and find out as much as we can about them using Open Source INTelligence methods.
+
+After this, we develop our reources - maybe a trojan which uses a .png image or .pdf document tailored to our target. This will take into consideration what we know about the target *and* what we know about the technology being used by them.
+
+We then establish the infrastructure we need in order to deliver the payload - maybe we clone a website, link it to a sneaky domain and start a file-sharing service along with a web server on the cloud.
+
+Next, we work on creating a *pretext* for delivering the payload to the target - this might be a spear-phishing email to them which has a link to a malicious website which we have created. The malicious website may well be serving our trojans.
+
+After this, we use social engineering techniques to deliver the payload and get the target to download a trojan.
+
+Maybe the target downloads and opens the trojan. Malicious code will then execute on the *client* machine used by the target and call back to a *Command and Control* server which we have running on the cloud.
+
+We have now gained access to the internal network of Teszzla via a client-side attack - notice how we had to hack a person as well as a computer.
+
+The process of *post exploitation* begins.
+
+### Client-Side Attack Methodology
+
+Taking into consideration the example above - we can put together a high-level attack chain for a client-side attack - see it as a workflow :smiley:
+
+- Reconnaissance
+- Target Identification
+- Resource Development
+- Delivery
+- Execution
+- Post-Exploitation
+
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
