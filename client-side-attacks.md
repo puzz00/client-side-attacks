@@ -46,6 +46,46 @@ Taking into consideration the example above - we can put together a high-level a
 - Execution
 - Post-Exploitation
 
+## Client-Side Attack Vectors
+
+Here are some common client-side attack vectors we can use to gain initial access to target networks.
+
+### Social Engineering
+
+The process of getting people to do things we want them to do which they wouldnt ordinarily do. We will go into these techniques in greater detail later - but as an overview social engineering includes:
+
+- Phishing Emails
+    - crafted emails to trick targets into clicking on malicious links or download malicious files
+- Spear-Phishing Emails
+    - phishing emails which are highly targeted due to extensive recon of the target
+- Social Media Engineering
+    - fake profiles used to establish connections and trust with targets and then get them to click on malicious links or downloads
+- Pretexting
+    - establishing a narrative to use to deceive the target
+- Baiting
+    - enticing the target to click on a malicious link or download malicious files
+- Tailgating
+    - establishing a relationship with the target and then using it to physically gain access to an organizations premises and therefore internal network
+
+### Malicious Files
+
+These can be any kind of file - .png .pdf. .docx etc - which have malicious content designed to execute once the file has been opened.
+
+### Drive-By Downloads
+
+We poison a compromised website or we create a website which contains malicious content - this is crafted so it is automatically downloaded and executed when a target visits the website.
+
+### Watering Hole Attacks
+
+Injecting malicious code to websites which we know are visited by the target.
+
+### USB Attacks
+
+We leave a poisoned USB stick somewhere a target will find it - the hope is they will be curious and mount it on a company machine. The stick will be infected with malware which automatically executes once the device has been mounted.
+
+### Exploit Kits
+
+These are kits such as BEEF which exploit client-side software - they make our life easier as attackers.
 
 ## Resource Development
 
