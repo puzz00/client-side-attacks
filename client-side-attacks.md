@@ -87,6 +87,40 @@ We leave a poisoned USB stick somewhere a target will find it - the hope is they
 
 These are kits such as BEEF which exploit client-side software - they make our life easier as attackers.
 
+## Information Gathering
+
+As always, the data we gather in this stage of the attack chain is of vital importance to the whole operation.
+
+When it comes to recon for client-side attacks, we need to gather data about human targets as well as the software they are using and its configuration.
+
+>[!IMPORTANT]
+>Just knowing about the target - email address, interests etc - is not enough - we must know about the technology stack they are using, too
+
+### Passive Techniques
+
+We can use *passive* techniques to gather data about targets and the technology which is being used by an organization. These techniques include the following:
+
+- Google Dorks
+- Maltego
+- The Harvester
+
+### Active Techniques
+
+We can use *active* techniques to gather data. These techniques include:
+
+- Client Fingerprinting
+- Social Engineering
+
+#### Client Fingerprinting
+
+Since data regarding client machines is not publicly available, we need to use an *active* information gathering technique such as *client fingerprinting* in order to obtain it.
+
+A common way of fingerprinting a client machine is to use a phishing email to socailly engineer a target employee in an organization to visit a malicious webpage which contains code which will extract data regarding the client machines browser, plugins, extensions and operating system.
+
+A good exploit kit to achieve this is BEEF - there are notes on how to use this framework as my repo on [hacking using the cloud | beef](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md#hacking-web-browsers)
+
+The `Details` tab of a hooked browser provides lots of useful data - it essentialy fingerprints the browser and even gives us the OS being used.
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
