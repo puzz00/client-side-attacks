@@ -157,7 +157,8 @@ Pretexting is important - we are establishing a relationship based on trust with
 
 When we create a pretext we are trying to make things seem as normal as possible for the target. This can take time - we are creating a relationship with the target. This relationship will be based on a false pretext - we will be pretending to be somebody we are not such as a colleague or a member of a service provider - there are many more examples.
 
->[!TIP]This one is from Sun Zi - engage people with what they expect | it is what they are able to discern and confirms their projections | it settles them into predictable patterns of response | occupying their minds while we wait for the extraordinary moment | that which they cannot anticipate
+>[!TIP]
+>This one is from Sun Zi - engage people with what they expect | it is what they are able to discern and confirms their projections | it settles them into predictable patterns of response | occupying their minds while we wait for the extraordinary moment | that which they cannot anticipate
 
 The point is that people are more likely to trust people they feel as though they know and are comfortable with - they are less likely to act as we want them to if our messages or requests come out of nowhere - our requests need to come out of the pretext.
 
