@@ -121,6 +121,90 @@ A good exploit kit to achieve this is BEEF - there are notes on how to use this 
 
 The `Details` tab of a hooked browser provides lots of useful data - it essentialy fingerprints the browser and even gives us the OS being used.
 
+## Social Engineering
+
+Social engineering is quite simply the art of getting people to do things we want them to do which they wouldnt normally do.
+
+It is a vast field and it is as old as the hills. We find social engineering being used in just about every crime we can think of - from con men getting their victims to send them money to serial killers getting people to enter their cars.
+
+Some white hat penetration testers find studying this area uncomfortable - seeing it as being unethical. It is - however - widely used by threat actors from teenage hackers - with or without autism - to nation state sponsored Advanced Persistent Threat groups - it is therefore vitally important to learn how to do it so we can better protect our clients.
+
+>[!IMPORTANT]
+>If we find it cynical or feel manipulative when performing social enginnering attacks against employees of companies we are working for - we need to remember that we have been tasked to find security vulnerabilities so as to *help* the employees - better we find that the company needs to invest more in staff anti-phishing training than they fall prey to a real attacker
+
+### Social Engineering Basics
+
+In these notes we are focusing on social engineering in the context of attempting to gain access to a network so we can further our attack on the target organization.
+
+We are aiming to find ways to manipulate people so they help us realize our goals. We will be seeking to use psychology in different ways to exploit human emotions and desires to get employees to act in a way which compromises the security of their employer. These actions may well seem small and inconsequential - an employee letting us know whether they use windows or a mac for example.
+
+The human mind is complex and there are many ways we can seek to hack it. Here are some common human tendencies which are exploited during a social engineering campaign:
+
+- Wanting to be helpful
+- Trust
+- Needing approval or to be liked
+- Fear
+- Wanting to avoid conflict
+
+It is worth considering the power of social engineering - instead of spending hours messing about with server side attacks we can gain access to a network within minutes via a well carried out hack of an employee - this is one of the reasons it is so popular with threat actors.
+
+>[!NOTE]
+>With the rise of social media - social engineering has *massively* risen in importance and effectiveness - looking at profiles is well worth taking the time to do
+
+### Pretexting
+
+Pretexting is important - we are establishing a relationship based on trust with a target.
+
+When we create a pretext we are trying to make things seem as normal as possible for the target. This can take time - we are creating a relationship with the target. This relationship will be based on a false pretext - we will be pretending to be somebody we are not such as a colleague or a member of a service provider - there are many more examples.
+
+>[!TIP]This one is from Sun Zi - engage people with what they expect | it is what they are able to discern and confirms their projections | it settles them into predictable patterns of response | occupying their minds while we wait for the extraordinary moment | that which they cannot anticipate
+
+The point is that people are more likely to trust people they feel as though they know and are comfortable with - they are less likely to act as we want them to if our messages or requests come out of nowhere - our requests need to come out of the pretext.
+
+>[!NOTE]
+>Creating a good pretext narrative comes from quality reconaissance - we need to get to know how the organization typically works - which departments do they have - what is their general company ethos or way of doing things etc
+
+#### Pretexting Defining Characteristics
+
+Here we will look at some general characteristics which make up a pretexting campaign.
+
+##### False Pretense
+
+False pretense simply means that we get the target to believe we are who we say we are. Our aim is to get the target to trust their interaction with us. This includes techniques such as making sure our emails look legitimate or professional and do not end up in the spam folder. We are creating our made up story by pretending to be somebody who has a real and innocent need to ask for information.
+
+##### Trust Establishment
+
+Through the pretext we foster our relationship with the target and seek to gain their trust.
+
+During this phase we will be thinking psychology - how can we get the target to connect with us - maybe by showing a shared interest with them or reflecting their tone and use of language in email correspondence.
+
+These are just *electronic forms* of physical techniques we can use to build a rapport with somebody. For example - when sitting and talking with people who may at first be unwilling to share much with us - we can generally exploit techniques such as subtly mirroring their body language and repeating words they have said and changing our phrasing and tone of voice to match theirs to make them feel more relaxed and to establish a connection with them - this in turn will lead to the person sharing more with us - perhaps more than they would have originally intended.
+
+##### Manipulation of Emotions
+
+In this phase we seek to exploit the emotions of the target. Which emotion or emotions and how is very specific to what we have ascertained about the person.
+
+Generally speaking we can focus on areas such as inquisitiveness | sympathy | needing approval | fear | greed and urgency.
+
+>[!IMPORTANT]
+>The manipulation of emotions needs to be done in a subtle way from the pretext and relationship we have already created
+
+A target is *much* more likely to click on a link which they are curious about from a contact they feel comfortable with than on a link in a random email which drops out of nowhere and is riddled with spelling mistakes and dodgy grammar. Hey - who knew - it turns out my long lost uncle is really a prince who needs to get a load of money out of :nigeria: INSERT COUNTRY NAME HERE :nigeria: - great - I get to keep 33% of it if I let him transfer it into my bank account :grin:
+
+##### Data Extraction
+
+Data extraction must be done after the pretext and trust have been established. The data extraction works hand-in-hand with the manipulation of emotions - we might for example prey on an employees fear of messing something important up or their desire to be helpful and win approval.
+
+##### Consistency
+
+We must work hard at maintaining consistency in our interactions with targets. We want our pretext to remain plausible - ideally the target wont even know they have been manipulated.
+
+This will require us to undertake thorough reconaissance of targets and the organizations they work for. We will need to be flexible and able to quickly adapt our responses and techniques according to the behaviour of the target.
+
+#### Pretexting Email Templates
+
+For some examples of email templates which can be adapted and used as pretexts in phishing campaigns - please see [phishing pretexts](https://github.com/L4bF0x/PhishingPretexts)
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
