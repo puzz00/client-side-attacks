@@ -206,6 +206,140 @@ This will require us to undertake thorough reconaissance of targets and the orga
 
 For some examples of email templates which can be adapted and used as pretexts in phishing campaigns - please see [phishing pretexts](https://github.com/L4bF0x/PhishingPretexts)
 
+## Phishing Campaigns Using Gophish
+
+In this section we will look at how we can use `gophish` to run a *phishing* campaign.
+
+### Why Gophish
+
+Gophish is a tool to help us conduct phishing simulations for clients. It has functionality which enables us to create, run and analyze phishing campaigns.
+
+We can use the data we get from it to help organizations understand how well they are doing - or not - when it comes to anti-phishing measures. This in turn can aid education of employees and thereby improve resistence to phishing as we can show them what we did and how that could impact on the organization.
+
+>[IMPORTANT]
+>We need to provide our clients with data from phishing simulations - how many employees clicked on malicious links, how many entered credentials to fake web apps etc
+
+Gophish is great for sharing the data collected as if we run it on [the cloud](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md) we can give relevant members of the organization direct access to it.
+
+### Features of Gophish
+
+Gophish has lots of useful features which are outlined below.
+
+#### Creating Campaigns
+
+We can create unique campaigns using gophish. These can be crafted to work for specific departments in the organizations we are working with. We can run more than one campaign and each can be customized.
+
+#### Template Editor for Emails
+
+The email template editor in gophish lets us design professional looking emails before we send them - we can see what they will look like in the editor so we do not have to mess about sending them to email accounts and checking them in that way.
+
+#### Managing Targets
+
+We can manage targets easily in gophish by grouping them according to criteria such as which department they work in, their job role or where they are based. This means we can set up a campaign and then launch it to specific groups of targets. This enables us to make our phishing campaigns very targetted.
+
+#### Creating Landing Pages
+
+Gophish makes it easy to create fake landing pages which we can use in our phishing campaigns. These pages can imitate real login pages - gophish will steal entered credentials and save them for us. We can loot other sensitive data as well as username:password combinations.
+
+>[!NOTE]
+>My notes on [hacking using the cloud](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md) show more manual ways we can create phishing webpages to loot credentials and attack web browsers
+
+#### Data Collection and Reports
+
+Gophish tracks activity relating to our phishing campaigns such as how many users clicked on links, entered credentials etc - these data can then be put into reports automatically which can be shared with clients.
+
+#### Automation
+
+We can automate phishing campaigns which can be scheduled to run on specified dates and times. We can create campaigns which repeatedly run in this way which is useful if our client asks us to run several campaigns over a period of time in order to see if anti-phishing strategies they have implemented are being successful or not.
+
+### Phishing with Gophish
+
+In this section we will look at some examples of using `gophish` over the cloud to send phishing emails to targets and to harvest credentials from a malicious landing page.
+
+>[!NOTE]
+>We will not be going over how to set up servers on the cloud as this has been covered in my notes on [hacking using the cloud](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md) We are assuming a cloud server is already in operation - if not please read my aforementioned notes
+
+#### Installing Gophish on our Cloud Server
+
+We will download the github repo for [gophish](https://github.com/gophish/gophish.git) and then clone into it using `git clone https://github.com/gophish/gophish.git` The `/opt` directory is a good place to download *optional* packages such as *gophish* - we can give our *kali* user ownership of it using `sudo chown kali:kali /opt`
+
+>[!IMPORTANT]
+>We need to have `go` installed on our server - we can do so using `sudo apt install golang-go`
+
+![gp1](/images/gp1.png)
+
+![gp2](/images/gp2.png)
+
+We next build a *gophish* binary by navigating into the gophish directory using `cd /opt/gophish` and then running `go build`
+
+>[!NOTE]
+>Errors thrown relating to *sqlite3* seem to always occur but are not important so we can ignore them
+
+![gp3](/images/gp3.png)
+
+![gp4](/images/gp4.png)
+
+#### Initial Configuration
+
+We first of all need to change the default url from `127.0.0.1` to `0.0.0.0` since we want to accept traffic from IP addresses other than just the `localhost` We can edit this using `nano /opt/gophish/config.json`
+
+![gp5](/images/gp5.png)
+
+##### Setting Gophish to be a System Service
+
+We can now establish *gophish* as a system service. We can do this by creating a configuration file using `sudo nano /etc/systemd/system/gophish.service` We need to enter details for the service to run properly - the following code can be amended as is needed:
+
+```bash
+[Unit]
+Description=gophish-service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/gophish/
+ExecStart=/opt/gophish/gophish
+
+[Install]
+WantedBy=multi-user.target
+```
+
+![gp6](/images/gp6.png)
+
+We next need to *enable* the gophish service using `sudo systemctl enable gophish.service`
+
+Once we have done this we can start and stop the service as well as checking its status.
+
+We will need to first of all start the gophish service - we can do this using `sudo service gophish start`
+
+>[!IMPORTANT]
+>We see default credentials when we start the *gophish service* - we need to note these down somewhere safe
+
+![gp7](/images/gp7.png)
+
+##### Accessing the Gophish Admin Panel
+
+Since gophish runs over port 3333 we will need to add an inbound rule to our cloud server to allow traffic on that port.
+
+![gp8](/images/gp8.png)
+
+We can then visit the IP address of our server along with port 3333 and log into the gophish admin panel using the default credentials which we noted down when we started the gophish service.
+
+![gp9](/images/gp9.png)
+
+![gp10](/images/gp10.png)
+
+#### Linking Our Server to a Domain
+
+We can add a *DNS* `A` record for our server and then open port 80 to allow inbound traffic.
+
+![gp11](/images/gp11.png)
+
+![gp12](/images/gp12.png)
+
+![gp13](/images/gp13.png)
+
+>[!TIP]
+>All of this is covered in my notes on [hacking using the cloud](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md) - they go over getting domain names and editing inbound security rules etc
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
