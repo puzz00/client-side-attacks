@@ -340,6 +340,44 @@ We can add a *DNS* `A` record for our server and then open port 80 to allow inbo
 >[!TIP]
 >All of this is covered in my notes on [hacking using the cloud](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md) - they go over getting domain names and editing inbound security rules etc
 
+#### Getting a Certificate
+
+We need to get a certificate so we can get rid of nasty warnings thrown by browsers and to make targets feel more at ease visiting our malicious landing pages.
+
+We first of install *certbot* on our cloud server using `sudo apt install certbot`
+
+![gp14](/images/gp14.png)
+
+We next generate a cert and a key - we will need to solve a challenge during this process.
+
+First of all we run `sudo certbot certonly -d astrobin.loginpage.world --manual --preferred-challenges dns` and provide an email along with acceptance of the terms of use and - probably - nonacceptance of mailing from the EFF.
+
+We will be given a challenge to solve - we just need to copy the value given and add it to a `TXT` record in our name registrar DNS area.
+
+![gp15](/images/gp15.png)
+
+![gp16](/images/gp16.png)
+
+We will get the cert and key - it is useful to keep note of the paths to these.
+
+![gp17](/images/gp17.png)
+
+We now need to reconfigure the `config.json` file so gophish works with TLS over port 443 `sudo nano /opt/gophish/config.json`
+
+![gp18](/images/gp18.png)
+
+Next we open port 443 on our cloud server.
+
+![gp19](/images/gp19.png)
+
+The gophish service will need to be restarted - we can do this by stopping it and then starting it again using `sudo service gophish stop` followed by `sudo service gophish start`
+
+![gp20](/images/gp20.png)
+
+The phishy server are starting to look better with a padlock and https enabled.
+
+![gp21](/images/gp21.png)
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
