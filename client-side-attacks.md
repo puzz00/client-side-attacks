@@ -216,7 +216,7 @@ Gophish is a tool to help us conduct phishing simulations for clients. It has fu
 
 We can use the data we get from it to help organizations understand how well they are doing - or not - when it comes to anti-phishing measures. This in turn can aid education of employees and thereby improve resistence to phishing as we can show them what we did and how that could impact on the organization.
 
->[IMPORTANT]
+>[!IMPORTANT]
 >We need to provide our clients with data from phishing simulations - how many employees clicked on malicious links, how many entered credentials to fake web apps etc
 
 Gophish is great for sharing the data collected as if we run it on [the cloud](https://github.com/puzz00/hacking-using-the-cloud/blob/main/hacking-using-the-cloud.md) we can give relevant members of the organization direct access to it.
