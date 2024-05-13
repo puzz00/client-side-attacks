@@ -492,7 +492,7 @@ With everything set we can now launch a phishing campaign. This is really still 
 
 In this example we are using a simple html form on our landing page - yes it looks sus and basic because it is sus and basic but we are just making sure things work as we want them to.
 
-Using a [ten minute email]() we find our phish comes through fine and we click on the link. We see our form and input some credentials.
+Using a [ten minute email](https://10minutemail.com/) we find our phish comes through fine and we click on the link. We see our form and input some credentials.
 
 ![gp33](/images/gp33.png)
 
