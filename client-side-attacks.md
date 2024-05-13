@@ -378,6 +378,136 @@ The phishy server are starting to look better with a padlock and https enabled.
 
 ![gp21](/images/gp21.png)
 
+#### Getting an Account with an Email Registrar
+
+We want to get an account with an email registrar who offers SMTP services. There are lots out there - for this example we are going to use [brevo](https://www.brevo.com/)
+
+We do not need to enter credit card details in order to get a free account. We will need to give a phone number which we have access to as they use it to validate the account.
+
+![gp22](/images/gp22.png)
+
+Once we have our account we need to add a domain which we own to our account.
+
+![gp23](/images/gp23.png)
+
+The next step is to get the necessary DNS records established - `MX` records and `TXT` records for `DKIM` and `SPF` This is easy with *brevo* as they can automate it. If we are using other providers such as [mailgun](https://www.mailgun.com/) we need to do this manually - the instructions are clear and we just follow them step-by-step.
+
+>[!NOTE]
+>We do need to provide credit card details to get a properly functional account with *mailgun*
+
+![gp24](/images/gp24.png)
+
+The next step is to create a new *sender* - we dont want to use the default *postmaster* as we want to make our emails look more authentic.
+
+>[!TIP]
+>Make the sender or senders relevant to the target
+
+![gp25](/images/gp25.png)
+
+![gp26](/images/gp26.png)
+
+We are now ready to head over to gophish and start creating the templates and profiles we need in order to launch a phishing campaign.
+
+![gp27](/images/gp27.png)
+
+#### Creating Templates and Profiles in Gophish
+
+We need to create the following before we can launch a phishing campaing in gophish:
+
+- Sending Profile
+- Landing Page
+- Email Template
+- Users and Groups
+
+##### Sending Profile
+
+We can start by creating a *Sending Profile* which links to our *SMTP* service account with *brevo*
+
+We give our profile a name which is used inside gophish to distinguish it from other profiles.
+
+We specify the *Interface Type* to be `SMTP`
+
+In the *SMTP From* field we add the name of one of our *senders* we created in brevo.
+
+We put the name of our SMTP server and its port into the *Host* section.
+
+>[!IMPORTANT]
+>Use port 587 *NOT* 25 for your SMTP server - gophish does not seem to work with port 25
+
+The fields in the *Username* and *Password* sections need to be the data we got from brevo relating to our username:password credentials - these will be used by gophish to authenticate to our SMTP account.
+
+![gp67](/images/gp67.png)
+
+##### Landing Page
+
+The landing page is what the targets will see if they click the malicious link we provide in our phishing email.
+
+We can craft our own webpage in the gophish editor using html and css or we can import websites which are already in existance. The latter method is easier and leads to more authentic looking sites.
+
+![gp68](/images/gp68.png)
+
+We can specify that we want gophish to capture submitted data and if we want we can also capture submitted passwords - this is achieved by simply clicking buttons - no knowledge of *php* necessary.
+
+The target can be redirected to a different or the same website once they have submitted data. It is common to redirect back to the login page of the *authentic* website - this just leads the target to believe they fat-fingered their login credentials.
+
+![gp69](/images/gp69.png)
+
+##### Email Templates
+
+Here we can craft what our phishing emails look like. We can have lots of fun bringing into play our *socail enginnering* skills and use our *pretext*.
+
+>[!TIP]
+>Dont just copy a pretexting template directly into the email template editor - spam filters are more likely to recognise them as malicious and drop them into the spam folder if we do this - as always - the more unique the better
+
+When working on the email template we can use plain text or html and css. If we are using html and css it is fun to try to create an email which looks like it has come from a genuine organization. We can copy their color palette and include a logo for example. This takes a little longer but looks better. In this example we have just created a plain looking email.
+
+We can add an *Envelope Sender* which if used will be the details shown to the target in their inbox. It is generally easy to bypass filters if we use a name from a domain we own and have linked to our SMTP service account but it is more difficult and problematic if we attempt to impersonate a different domain - our emails will tend to end up in spam or with weird email extensions if we attempt this.
+
+>[!NOTE]
+>If too many of our emails end up in spam or we are attempting to impersonate users from domains we do not own it is likely that our smtp service accounts will be blocked or deleted and our links fail to work - not great - we dont want out IP address to end up on blacklists
+
+![gp70](/images/gp70.png)
+
+##### Users and Groups
+
+This is where we can manage our targets. We can add them individually or in bulk via an import.
+
+>[!NOTE]
+>We can use gophish syntax in our email templates to pull in data from the users such as `{{.FirstName}}` which means we can easily make our emails more personal - better to have `Dear John` than `Dear User`
+
+![gp71](/images/gp71.png)
+
+#### Launching a Phishing Campaign
+
+With everything set we can now launch a phishing campaign. This is really still a test so in this example we are just sending our phishing email to one user. This will let us test to see where the email ends up - gophish does not tell us if it lands in an inbox or spam - it just tells us that the email has been sent - unless it hasnt in which case we will get an error.
+
+>[!NOTE]
+>We havent tweaked our gophish configuration to make it less detectable yet so our test email at this point might end up in spam - this is just to make sure things are being sent | recieved and the landing page works
+
+![gp72](/images/gp72.png)
+
+![gp73](/images/gp73.png)
+
+#### Our First Test Campaign
+
+In this example we are using a simple html form on our landing page - yes it looks sus and basic because it is sus and basic but we are just making sure things work as we want them to.
+
+Using a [ten minute email]() we find our phish comes through fine and we click on the link. We see our form and input some credentials.
+
+![gp33](/images/gp33.png)
+
+Notice the `rid` parameter in the url - this is a unique value set by gophish - each email will have a different value so gophish can track who clicked on links | entered data etc
+
+We can change the name of the parameter to make it less fishy - not many web apps use `rid` so people looking carefully may well be put off by it.
+
+Back in our gophish admin area we see how the neat and clean interface is tracking our campaign in real time - remember - data is *vitally* important when running social engineering and phishing simulations for clients.
+
+![gp34](/images/gp34.png)
+
+![gp35](/images/gp35.png)
+
+#### Reconfiguring Gophish to Make it Less Fishy
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
