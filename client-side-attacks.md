@@ -611,6 +611,10 @@ We then focus on our use of language. We choose an informal tone and pick up on 
 
 Regarding the format of the email we use a horizontal line at the bottom to mimic emails many organizations send and we have started with `Howdy {{.FirstName}}`
 
+We can use `{{.URL}}` in the link URL section when editing our email templates - this will pull the unique landing page url along with its id parameter into the email for the specified text.
+
+![gp74](/images/gp74.png)
+
 >[!TIP]
 >We can use the gophish syntax of {{.FirstName}} to automate the completion of the first name of targets - this is useful when we have lots of targets in the *Users and Groups*
 
