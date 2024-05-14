@@ -508,6 +508,159 @@ Back in our gophish admin area we see how the neat and clean interface is tracki
 
 #### Reconfiguring Gophish to Make it Less Fishy
 
+Now that we know gophish is working as intended we can start making things more stealthy. There are various ways we can do this.
+
+A good start point is to use the following commands *in the gophish directory*:
+
+```bash
+find . -type f -exec sed -i.bak 's/X-Gophish-Contact/X-Contact/g' {} +
+
+find . -type f -exec sed -i.bak 's/X-Gophish-Signature/X-Signature/g' {} +
+```
+
+>[!TIP]
+>If we want to understand more about linux *bash* commands and how they work we can use [explain shell](https://explainshell.com/) to help us - just copy and paste the commands into it :smiley: 
+
+![gp36](/images/gp36.png)
+
+Another place to edit is found in `/opt/gophish/config/config.go` assuming we cloned gophish into the `/opt/` directory.
+
+We want to make the `ServerName` variable `IGNORE`
+
+![gp37](/images/gp37.png)
+
+Remember that weird `rid` parameter in the url - we can change that to any string we want. In this example we change it to the commonly used `id`
+
+>[!NOTE]
+>We need to navigate back to `/opt/gophish` before running the following command
+
+```bash
+sed -i 's/const RecipientParameter = "rid"/const RecipientParameter = "id"/g' models/campaign.go
+```
+
+Following these tweaks to gophish we need to stop and start the gophish service. This can and does mess things up sometimes. If after using `sudo service gophish stop` and then `sudo service gophish start` we check the status using `sudo service gophish status` and are horrified to see it is not running we can just rebuild the binary then start it again and all ~~should~~ *will* be well.
+
+```bash
+go build
+sudo systemstl start gophish.service
+```
+
+![gp39](/images/gp39.png)
+
+We can now check the unique identifier value gophish uses has changed to `id` by sending another test email as before.
+
+![gp40](/images/gp40.png)
+
+##### Custom Headers
+
+We can add *custom headers* in the *Sending Profile* to make gophish less fishy. We essentialy want to set the following headers to have a value of `IGNORE`
+
+- Mime-Version
+- Received
+- X-Mailer
+- X-Originating-IP
+
+![gp41](/images/gp41.png)
+
+#### Making the Landing Page Look More Legit
+
+We have been using a test form in our campaigns so far - this was constructed using the html editor in the *Landing Page* template.
+
+We can make our landing pages much more believable either by using our own html and css code or - even better - cloning an existing website. This is easy in gophish - we just specify the url of the website we want to clone and then click the `Import Site` button. We can toggle between the source code and what it renders like in the gophish editor.
+
+![gp42](/images/gp42.png)
+
+>[!NOTE]
+>Sometimes we need to tweak the source code of the imported website - an external resource might not load properly for example so we can find the code that is loading it and then delete it or comment it out
+
+The landing page looks more legit than the basic test form we were using - obviously :smiley: 
+
+![gp44](/images/gp44.png)
+
+If a target does smell a phish and clicks on the padlock to check out more about security - they will - hopefully - be reassured by what they see due to our use of https and a certificate.
+
+![gp53](/images/gp53.png)
+
+Once we have submitted credentials the redirect work and things still look good - lots of people fat-finger theri login details so having to reenter creds is not overly suspicious for most.
+
+![gp45](/images/gp45.png)
+
+The credentials are still captured as before - the look of the landing page does not influence the functionality of gophish.
+
+![gp46](/images/gp46.png)
+
+#### Crafting a Decent Email
+
+Crafting good emails is fun and important. People generally dont click on links in unsolicited emails which are addressed to generic people | are riddled with mistakes in their language or are in general fishy.
+
+This is another area where our *social engineering* skills come into play.
+
+In this example we have created a - silly - example for the target - we imagine that our recon has revealed to us that this target loves astrophotography | is a user of the *astrobin* website and is from Texas U.S.A.
+
+We therefore craft our phish to the target. The text of our phishy phish is in the picture below - we will identify the social engineering techniques being used in a moment.
+
+![gp47](/images/gp47.png)
+
+First of all we begin with a *pretext*
+
+In this example our pretext is simple - we are pretending to be developers working on the astrobin website. We are being helpful by suggesting galleries and blog posts which we think will be of interest to the target.
+
+Next we choose a primary emotioanl archetype - if thats the right word and it probaly isnt - to exploit. In this example we choose curiosity.
+
+We then focus on our use of language. We choose an informal tone and pick up on the connection to Texas. We remember from watching *Toy Story* that toys - and probably people therefore - from Texas say howdy instead of the correct English which is hello. We have also dropped the final *g* on some words to try to mirror the accent. We have used what we believe is a Texan turn of phrase when we use *fixin' to* We pick up on how people in the astrophotography community sign off - they tend to use *clear skies*
+
+Regarding the format of the email we use a horizontal line at the bottom to mimic emails many organizations send and we have started with `Howdy {{.FirstName}}`
+
+>[!TIP]
+>We can use the gophish syntax of {{.FirstName}} to automate the completion of the first name of targets - this is useful when we have lots of targets in the *Users and Groups*
+
+PS - We also use PS as lots of people are drawn to this part of a letter or message.
+
+As we can see there is lots of social engineering going on even in a short email like this one.
+
+>[!TIP]
+>We could go further and invest time in developing our html and especially css in our email to make it look more like it is from astrobin - we could for example mimic their color palette and include a logo
+
+#### Sorting the Sender
+
+Since the ultimate aim of all our hard work is to get the target to visit our fake webpage and enter their credentials - in this example - then it makes sense that we make sure our phish lands in the targets inbox not their spam.
+
+We have given our phish a better chance of evading filters by reconfiguring gophish but we need to still consider the sender.
+
+If we try to spoof a domain which we do not own such as *@astrobin.com* our phish stands a higher chance of either ending up in spam or getting our smtp service account blocked. We can spoof different domains but as always we need to balance the risk with reward. If we can get the target to do what we want without needing to spoof other domains then this is the better choice.
+
+If we have chosen our domain name carefully and created a decently named sender with our email registrar - in this case brevo - then we can try ignoring the `Envelope Sender` field in the `Email Templates` Doing it this way we can still get good results.
+
+![gp60](/images/gp60.png)
+
+![gp61](/images/gp61.png)
+
+We can experiment with the `Envelope Sender` functionality if we want to. In this example we are pretending that we have found the name of one of the targets friends - Sarah Green - who is also using astrobin - we want to spoof her name.
+
+![gp55](/images/gp55.png)
+
+![gp57](/images/gp57.png)
+
+![gp58](/images/gp58.png)
+
+![gp59](/images/gp59.png)
+
+#### Conclusion
+
+We need to remember that our primary goal is to empower the employees of our clients to better protect themselves against threat actors who use phishing and social engineering as a means to gain a foothold onto networks or other nefarious purposes such as blackmail or fraud.
+
+With this in mind it becomes imperative that we know where the weaknesses are so we can better educate on how to strengthen them. This is why gophish is a great tool in our arsenal - it provides us with important data which will help us do our job more effectively.
+
+![gp66](/images/gp66.png)
+
+As a final thought on running simulated phishing campaigns - it is perhaps a good idea to consider how prevalent this technique is.
+
+It is interesting to look at real world examples of APT groups using phishing - here are a couple:
+
+- [APT-19](https://www.mandiant.com/resources/blog/phished-at-the-request-of-counsel)
+- [Patchwork](https://documents.trendmicro.com/assets/tech-brief-untangling-the-patchwork-cyberespionage-group.pdf)
+
+
 ## Resource Development
 
 In this section we will be looking at how we can craft malicious resources to use against our targets.
